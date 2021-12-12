@@ -14,17 +14,19 @@ class _MapaPageState extends State<MapaPage> {
 
   @override
   Widget build(BuildContext context) {
+     final ScanModel scan = ModalRoute.of(context)!.settings.arguments as ScanModel;
     final CameraPosition puntoInicial = CameraPosition(
-      target: LatLng(-12.097370529305818, -77.00735415150533),
+      target: scan.getLatLng(),
       zoom: 17,
       tilt: 50,
     );
+   
 
     //marcadores
     Set<Marker> marcadores = new Set<Marker>();
     marcadores.add(new Marker(
       markerId: MarkerId('geo-location'),
-      position: LatLng(-12.0969587266772, -77.03621727335025),
+      position: scan.getLatLng(),
     ));
 
     return Scaffold(
@@ -37,7 +39,7 @@ class _MapaPageState extends State<MapaPage> {
               final GoogleMapController controller = await _controller.future;
               controller.animateCamera(CameraUpdate.newCameraPosition(
                 CameraPosition(
-                  target: LatLng(-12.097370529305818, -77.00735415150533),
+                  target: scan.getLatLng(),
                   zoom: 17,
                   tilt: 50,
                 ),
